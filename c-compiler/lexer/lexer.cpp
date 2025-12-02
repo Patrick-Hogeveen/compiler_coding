@@ -157,51 +157,11 @@ std::vector<Token> tokenize(std::string &sourceCode) {
             //Making sure the char after a multi-char token gets processed properly
             i--;
         }
-        std::cout << i << std::endl;
+
         i++;
     }
 
-    /*
-    for (auto word: strTokens) {
-        if (word == "(") {
-            tokens.push_back(Token(word, TokenType::OpenParen));
-        }
-        else if (word == ")") {
-            tokens.push_back(Token(word, TokenType::CloseParen));
-        }
-        else if (word == "{") {
-            tokens.push_back(Token(word, TokenType::OpenBrace));
-        }
-        else if (word == "}") {
-            tokens.push_back(Token(word, TokenType::CloseBrace));
-        }
-        else if (word == "[") {
-            tokens.push_back(Token(word, TokenType::OpenSquare));
-        }
-        else if (word == "]") {
-            tokens.push_back(Token(word, TokenType::CloseSqaure));
-        }
-        else if (word == ";") {
-            tokens.push_back(Token(word, TokenType::Semicolon));
-        }
-        else {
-            if (isNumber(word)) {
-                tokens.push_back(Token(word, TokenType::Number));
-            }
-            else if (isWord(word)) {
-                auto it = keywords.find(word);
-                if (it != keywords.end()) {
-                    tokens.push_back(Token(word,it->second));
-                }
-                else {
-                    tokens.push_back(Token(word, TokenType::Identifier));
-                }
-                tokens.push_back(Token(word, TokenType::Semicolon));
-            }
-        }
-    }
-        */
-
+    
     return tokens;
 }
 
@@ -228,11 +188,6 @@ int main(int argc, char *argv[]) {
     contents_stream << input.rdbuf();
     sourceCode = contents_stream.str();
 
-    std::vector<std::string> words = SplitString(sourceCode);
-
-    for (auto word : words) {
-        std::cout << word << std::endl;
-    }
 
     std::vector<Token> tokens = tokenize(sourceCode);
     for (int i = 0; i < tokens.size(); ++i)

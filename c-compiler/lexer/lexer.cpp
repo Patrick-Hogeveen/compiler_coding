@@ -5,34 +5,11 @@
 #include <unordered_map>
 #include <cstring>
 #include <filesystem>
+#include "lexer.h"
 
 namespace fs = std::filesystem;
 
 
-enum TokenType {
-    OpenBrace,
-    CloseBrace,
-    OpenParen,
-    CloseParen,
-    OpenSquare,
-    CloseSqaure,
-    Semicolon,
-    Identifier,
-    Number,
-    BinaryOp,
-    //Keywords
-    Int,
-    Return,
-};
-
-struct Token {
-    std::string value;
-    TokenType type;
-
-    Token(std::string v, TokenType t) : value(v), type(t) {}
-};
-
-typedef std::unordered_map<std::string, TokenType> KeywordMap;
 KeywordMap keywords;
 
 void INIT_KEYWORDS() {
@@ -66,28 +43,6 @@ std::string chrToStr(char chr) {
     return std::string(1, chr);
 }
 
-
-
-std::vector<std::string> SplitString(std::string &srcCode) {
-    std::vector<std::string> words;
-    std::string word;
-
-
-    for (char ch : srcCode) {
-        if (ch != ' ') {
-            word += ch;
-        } else if (!word.empty()) {
-            words.push_back(word);
-            word.clear();
-        }
-    }
-
-    if (!word.empty()) {
-        words.push_back(word);
-    }
-
-    return words;
-}
 
 std::vector<Token> tokenize(std::string &sourceCode) {
     std::vector<Token> tokens;
@@ -190,6 +145,8 @@ int main(int argc, char *argv[]) {
 
 
     std::vector<Token> tokens = tokenize(sourceCode);
+    std::cout << sourceCode << std::endl;
+    std::cout << tokens.size() << std::endl;
     for (int i = 0; i < tokens.size(); ++i)
     {
         std::cout << "Value: " << tokens[i].value << "   Type: " << tokens[i].type << std::endl;
